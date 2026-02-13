@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'ReferralFlow AI - Automated e-commerce referral & affiliate program management',
-  description: 'Value Proposition: Automates setup, tracking, and payouts for referral programs, helping e-commerce businesses grow sales and maximize ROI with minimal manual effort.',
+  description: 'Value Proposition: Automates setup, tracking, and payouts for referral programs, helping e-commerce ',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
