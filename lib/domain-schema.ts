@@ -25,39 +25,39 @@ export const auditLog = pgTable('audit_log', {
   createdAt: timestamp('created_at').notNull().default(sql`now()`),
 });
 
-// Defines unique referral programs for different products/campaigns
+// Define unique referral program configurations for businesses
 export const referralPrograms = pgTable('referral_programs', {
-  id: text('id').primaryKey().notNull(),
-  userId: text('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
+  id: text('id').primaryKey(),
+  userId: text('user_id').references(() => users.id, { onDelete: 'cascade' }),
   name: text('name').notNull(),
   commissionRate: text('commission_rate').notNull(),
-  productIds: jsonb('product_ids').notNull(),
-  status: text('status').notNull().default('active'),
+  minimumPayout: text('minimum_payout').default(0),
+  isActive: boolean('is_active').default(true),
   createdAt: timestamp('created_at').notNull(),
   updatedAt: timestamp('updated_at').notNull(),
 });
 
-// Tracks individual referral tracking links and performance
+// Unique trackable referral links for affiliates
 export const referralLinks = pgTable('referral_links', {
-  id: text('id').primaryKey().notNull(),
-  userId: text('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
-  programId: text('program_id').notNull().references(() => referralPrograms.id, { onDelete: 'cascade' }),
+  id: text('id').primaryKey(),
+  userId: text('user_id').references(() => users.id, { onDelete: 'cascade' }),
+  programId: text('program_id').references(() => referralPrograms.id, { onDelete: 'cascade' }),
   uniqueCode: text('unique_code').notNull().unique(),
-  totalClicks: integer('total_clicks').notNull().default(0),
-  totalConversions: integer('total_conversions').notNull().default(0),
-  totalRevenue: text('total_revenue').notNull().default(0),
+  totalClicks: integer('total_clicks').default(0),
+  totalConversions: integer('total_conversions').default(0),
+  totalEarnings: text('total_earnings').default(0),
   createdAt: timestamp('created_at').notNull(),
   updatedAt: timestamp('updated_at').notNull(),
 });
 
-// Records individual referral sales and commissions
+// Track individual referral sales and commissions
 export const referralTransactions = pgTable('referral_transactions', {
-  id: text('id').primaryKey().notNull(),
-  userId: text('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
-  linkId: text('link_id').notNull().references(() => referralLinks.id, { onDelete: 'cascade' }),
-  saleAmount: text('sale_amount').notNull(),
+  id: text('id').primaryKey(),
+  userId: text('user_id').references(() => users.id, { onDelete: 'cascade' }),
+  linkId: text('link_id').references(() => referralLinks.id, { onDelete: 'cascade' }),
+  orderAmount: text('order_amount').notNull(),
   commissionAmount: text('commission_amount').notNull(),
-  status: text('status').notNull().default('pending'),
+  status: text('status').notNull(),
   createdAt: timestamp('created_at').notNull(),
   updatedAt: timestamp('updated_at').notNull(),
 });

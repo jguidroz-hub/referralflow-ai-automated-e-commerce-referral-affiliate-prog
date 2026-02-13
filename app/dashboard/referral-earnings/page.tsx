@@ -52,7 +52,7 @@ export default function ReferralEarningsPage() {
   return (
     <div className="max-w-4xl mx-auto p-6">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">Referral Earnings</h1>
+        <h1 className="text-2xl font-bold">Referral Earnings Dashboard</h1>
         <button
           onClick={() => setShowCreate(!showCreate)}
           className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
@@ -61,7 +61,7 @@ export default function ReferralEarningsPage() {
         </button>
       </div>
 
-      <p className="text-gray-600 mb-6">View commissions and transaction history</p>
+      <p className="text-gray-600 mb-6">Track commissions and payouts</p>
 
       {showCreate && (
         <div className="mb-6 p-4 border rounded-lg bg-gray-50">

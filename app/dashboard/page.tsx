@@ -29,16 +29,16 @@ export default function DashboardPage() {
       <h2 className="text-lg font-semibold mb-4">Quick Access</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-8">
           <a href="/dashboard/referral-programs" className="block p-4 border rounded-lg hover:bg-blue-50 transition">
-            <h3 className="font-medium">Referral Programs</h3>
-            <p className="text-sm text-gray-500">Create and manage referral campaigns</p>
+            <h3 className="font-medium">Referral Program Management</h3>
+            <p className="text-sm text-gray-500">Configure and track referral programs</p>
           </a>
           <a href="/dashboard/referral-links" className="block p-4 border rounded-lg hover:bg-blue-50 transition">
-            <h3 className="font-medium">Referral Links</h3>
-            <p className="text-sm text-gray-500">Track and share referral links</p>
+            <h3 className="font-medium">Referral Link Generator</h3>
+            <p className="text-sm text-gray-500">Create and manage referral links</p>
           </a>
           <a href="/dashboard/referral-earnings" className="block p-4 border rounded-lg hover:bg-blue-50 transition">
-            <h3 className="font-medium">Referral Earnings</h3>
-            <p className="text-sm text-gray-500">View commissions and transaction history</p>
+            <h3 className="font-medium">Referral Earnings Dashboard</h3>
+            <p className="text-sm text-gray-500">Track commissions and payouts</p>
           </a>
         <a href="/dashboard/settings" className="block p-4 border rounded-lg hover:bg-blue-50 transition">
           <h3 className="font-medium">Settings</h3>
