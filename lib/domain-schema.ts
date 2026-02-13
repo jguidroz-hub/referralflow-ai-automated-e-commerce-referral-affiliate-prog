@@ -31,7 +31,7 @@ export const referralPrograms = pgTable('referral_programs', {
   userId: text('user_id').references(() => users.id, { onDelete: 'cascade' }),
   name: text('name').notNull(),
   commissionRate: text('commission_rate').notNull(),
-  minimumPayout: text('minimum_payout').default(0),
+  minimumPayout: text('minimum_payout').default('0'),
   isActive: boolean('is_active').default(true),
   createdAt: timestamp('created_at').notNull(),
   updatedAt: timestamp('updated_at').notNull(),
@@ -45,7 +45,7 @@ export const referralLinks = pgTable('referral_links', {
   uniqueCode: text('unique_code').notNull().unique(),
   totalClicks: integer('total_clicks').default(0),
   totalConversions: integer('total_conversions').default(0),
-  totalEarnings: text('total_earnings').default(0),
+  totalEarnings: text('total_earnings').default('0'),
   createdAt: timestamp('created_at').notNull(),
   updatedAt: timestamp('updated_at').notNull(),
 });
