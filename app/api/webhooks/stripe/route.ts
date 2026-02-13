@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
           // Link Stripe customer to user
           await db.update(users)
             .set({ stripeCustomerId: customerId, updatedAt: new Date() })
-            .where(eq(users.id, userId));
+            .where(eq(users.id, String(userId)));
         }
         break;
       }
@@ -77,7 +77,7 @@ export async function POST(request: NextRequest) {
         // Send confirmation email on new active subscription
         if (event.type === 'customer.subscription.created' && sub.status === 'active') {
           try {
-            const [user] = await db.select().from(users).where(eq(users.id, userId)).limit(1);
+            const [user] = await db.select().from(users).where(eq(users.id, String(userId))).limit(1);
             if (user?.email) {
               const { sendSubscriptionEmail } = await import('@/lib/email');
               const planName = sub.items?.data?.[0]?.price?.nickname || 'Pro';
@@ -106,11 +106,11 @@ export async function POST(request: NextRequest) {
         // Update subscription status
         await db.update(subscriptions)
           .set({ status: 'past_due', updatedAt: new Date() })
-          .where(eq(subscriptions.id, subId));
+          .where(eq(subscriptions.id, String(subId)));
 
         // Notify user
         try {
-          const [sub] = await db.select().from(subscriptions).where(eq(subscriptions.id, subId)).limit(1);
+          const [sub] = await db.select().from(subscriptions).where(eq(subscriptions.id, String(subId))).limit(1);
           if (sub) {
             const [user] = await db.select().from(users).where(eq(users.id, sub.userId)).limit(1);
             if (user?.email) {
@@ -131,7 +131,7 @@ export async function POST(request: NextRequest) {
         // Restore active status if was past_due
         await db.update(subscriptions)
           .set({ status: 'active', updatedAt: new Date() })
-          .where(eq(subscriptions.id, subId));
+          .where(eq(subscriptions.id, String(subId)));
         break;
       }
 

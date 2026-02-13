@@ -40,7 +40,7 @@ export async function POST(request: Request) {
       .from(verificationTokens)
       .where(
         and(
-          eq(verificationTokens.token, token),
+          eq(verificationTokens.token, String(token)),
           gt(verificationTokens.expires, new Date())
         )
       )

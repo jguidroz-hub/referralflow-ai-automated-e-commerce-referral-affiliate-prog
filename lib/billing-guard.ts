@@ -30,7 +30,7 @@ export async function checkAccess(userId: string): Promise<AccessCheck> {
       .from(subscriptions)
       .where(
         and(
-          eq(subscriptions.userId, userId),
+          eq(subscriptions.userId, String(userId)),
           or(
             eq(subscriptions.status, 'active'),
             eq(subscriptions.status, 'trialing'),

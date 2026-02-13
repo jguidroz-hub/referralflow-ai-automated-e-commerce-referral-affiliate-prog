@@ -33,7 +33,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         const [user] = await db
           .select()
           .from(users)
-          .where(eq(users.email, email))
+          .where(eq(users.email, String(email)))
           .limit(1);
 
         if (!user?.hashedPassword) return null;

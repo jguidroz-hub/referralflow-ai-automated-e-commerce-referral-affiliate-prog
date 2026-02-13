@@ -34,7 +34,7 @@ export async function POST(request: Request) {
     const [user] = await db
       .select({ id: users.id })
       .from(users)
-      .where(eq(users.email, cleanEmail))
+      .where(eq(users.email, String(cleanEmail)))
       .limit(1);
 
     if (!user) return successResponse;

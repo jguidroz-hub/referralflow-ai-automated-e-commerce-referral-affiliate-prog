@@ -30,7 +30,7 @@ export async function DELETE(request: Request) {
       const [sub] = await db
         .select()
         .from(subscriptions)
-        .where(eq(subscriptions.userId, userId))
+        .where(eq(subscriptions.userId, String(userId)))
         .limit(1);
 
       if (sub && sub.status === 'active') {
@@ -48,10 +48,10 @@ export async function DELETE(request: Request) {
 
     // Delete in order: subscriptions → sessions → accounts → user
     // Foreign keys with ON DELETE CASCADE should handle this, but being explicit
-    try { await db.delete(subscriptions).where(eq(subscriptions.userId, userId)); } catch {}
-    try { await db.delete(sessions).where(eq(sessions.userId, userId)); } catch {}
-    try { await db.delete(accounts).where(eq(accounts.userId, userId)); } catch {}
-    await db.delete(users).where(eq(users.id, userId));
+    try { await db.delete(subscriptions).where(eq(subscriptions.userId, String(userId))); } catch {}
+    try { await db.delete(sessions).where(eq(sessions.userId, String(userId))); } catch {}
+    try { await db.delete(accounts).where(eq(accounts.userId, String(userId))); } catch {}
+    await db.delete(users).where(eq(users.id, String(userId)));
 
     return NextResponse.json({ message: 'Account deleted successfully' });
   } catch (error: any) {
